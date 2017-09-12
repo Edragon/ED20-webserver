@@ -73,12 +73,12 @@ static unsigned char auchCRCLo[] = {
 
 u16 SDI_CRC16(unsigned char *puchMsg, unsigned short usDataLen)
 {
-	unsigned char uchCRCHi = 0xFF ; /* ³õÊ¼»¯¸ß×Ö½Ú*/
-	unsigned char uchCRCLo = 0xFF ; /* ³õÊ¼»¯µÍ×Ö½Ú*/
-	unsigned int uIndex ; /*°ÑCRC±í*/
+	unsigned char uchCRCHi = 0xFF ; /* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+	unsigned char uchCRCLo = 0xFF ; /* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½*/
+	unsigned int uIndex ; /*ï¿½ï¿½CRCï¿½ï¿½*/
 	while(usDataLen--)
 	{
-		uIndex = uchCRCHi ^ *puchMsg++ ; /*¼ÆËãCRC */
+		uIndex = uchCRCHi ^ *puchMsg++ ; /*ï¿½ï¿½ï¿½ï¿½CRC */
 		uchCRCHi = uchCRCLo ^ auchCRCHi[uIndex] ;
 		uchCRCLo = auchCRCLo[uIndex] ;
 	}
@@ -105,13 +105,14 @@ u8 Hex2Dec(u8 num)
 	return dec;
 }
 
+// bvol, hvol
 void ProInit(void)
 {
 	Pro.bvol=0xff;
 	Pro.hvol=0xff;
 }
 
-
+// time 
 void ProTimeInit(void)
 {
 	GetSysTime(&time);
@@ -122,7 +123,7 @@ void ProTimeInit(void)
 	Pro.time[4]=Dec2Hex(time.minute);
 	Pro.time[5]=Dec2Hex(time.second);
 }
-
+// pro data, sn number is 0123456
 void ProDataInit(void)
 {
 	u8 i;
@@ -137,34 +138,37 @@ void ProDataInit(void)
 	
 }
 
+
 void Head_Init(u16 func)
 {
 	u8 i;
 	ProNum++;
 	PROBUF[0]=0x7E;
-	PROBUF[1]=0x7E;
+	PROBUF[1]=0x7E; // header start 0-1
 	PROBUF[2]=(PROVERSION&0xff000000)>>24;
 	PROBUF[3]=(PROVERSION&0xff0000)>>16;
 	PROBUF[4]=(PROVERSION&0xff00)>>8;
-	PROBUF[5]=PROVERSION&0xff;
+	PROBUF[5]=PROVERSION&0xff; // version 2-5
 	PROBUF[6]=(func&0xff00)>>8;
-	PROBUF[7]=func&0xff;
+	PROBUF[7]=func&0xff; // function 6-7
 	PROBUF[8]=(ProNum&0xff00)>>8;
-	PROBUF[9]=ProNum&0xff;
-	for(i=0;i<6;i++)PROBUF[10+i]=Pro.time[i];
+	PROBUF[9]=ProNum&0xff; // packet times 8-9
+	for(i=0;i<6;i++)PROBUF[10+i]=Pro.time[i]; // time 10-15
 	PROBUF[16]=0x00;
 	PROBUF[17]=0x00;
 	CurrtLen=18;
 }
 
 
-
+// packet length 16, 17
 void Length_Init(u8 prolen)
 {
 	PROBUF[16]=(prolen&0xff00)>>8;
 	PROBUF[17]=prolen&0xff;
 }
 
+
+// start with TLV, type length and value
 void Tlv_Init(u8 hl,tlv *tlvtable,u8 *prolen)
 {
 	u8 i;
@@ -176,7 +180,7 @@ void Tlv_Init(u8 hl,tlv *tlvtable,u8 *prolen)
 	*prolen=hl+4+i;
 }
 
-
+// sn number, 01234567
 void ProIdInit(void)
 {
 	u8 i;
@@ -187,7 +191,7 @@ void ProIdInit(void)
 	Tlv_Init(CurrtLen,&Id,&CurrtLen);
 }
 
-
+// --
 void ProSigStInit(void)
 {
 	tlv ProSt;
@@ -197,6 +201,7 @@ void ProSigStInit(void)
 	Tlv_Init(CurrtLen,&ProSt,&CurrtLen);
 }
 
+// --
 void ProSigEndInit(void)
 {
 	tlv ProSt;
@@ -329,15 +334,17 @@ void ProPasswdInit(u8 len,u8 rellen)
 	for(i=0;i<mylen;i++)PROBUF[len+i]=PROBUF[len+i]^systemset.Passwd[i];
 }
 
+
+// entrance
 void CoreDataInitNew(u8 *len,u16 funcid)
 {
 	u8 elen;
 	u8 plen;
-	ProTimeInit();
-	ProDataInit();
-	Head_Init(funcid);
-	ProIdInit();
-	ProSigStInit();
+	ProTimeInit(); // get time
+	ProDataInit(); // get data 
+	Head_Init(funcid); // head
+	ProIdInit(); // sn number
+	ProSigStInit(); // sig, yet
 	plen=CurrtLen;
 	ProValuesInit();
 	ProMpu6050ValuesInit();
@@ -370,7 +377,7 @@ void CoreDataInitNew2(u8 *len,u16 funcid)
 	*len=CurrtLen;
 }
 
-
+// MPU6050
 
 void ProMpu6050ValuesInit(void)
 {
@@ -672,7 +679,7 @@ void BufAnalys(u8 len,u8 *buf,u16 fcunid)
 				{
 					if(ProA.type==T_MAINID)
 						{
-							Center2ModuleInfo|=1<<9;				//¶ÁÈ¡ID     
+							Center2ModuleInfo|=1<<9;				//ï¿½ï¿½È¡ID     
 						}
 					
 				}
@@ -689,7 +696,7 @@ void BufAnalys(u8 len,u8 *buf,u16 fcunid)
 									Ql_strcat(systemset.SN,tbuf);
 									SaveFlashParamsNew(&systemset);
 								}
-							Center2ModuleInfo|=1<<15;			//ÉèÖÃÖ÷IDºÅ	
+							Center2ModuleInfo|=1<<15;			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½	
 							ReCenterTlV.type=ProA.type;
 							ReCenterTlV.length=0x00;
 						}
@@ -698,7 +705,7 @@ void BufAnalys(u8 len,u8 *buf,u16 fcunid)
 				{
 					if(ProA.type==T_SENDT)
 						{
-							Center2ModuleInfo|=1<<12;				//¶ÁÈ¡·¢ËÍ¼ä¸ô
+							Center2ModuleInfo|=1<<12;				//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½
 						}
 				}
 			if(fcunid==WRYXCS)
@@ -707,18 +714,18 @@ void BufAnalys(u8 len,u8 *buf,u16 fcunid)
 						{
 							systemset.HandInter=ProA.value[0]<<8|ProA.value[1];
 							SaveFlashParamsNew(&systemset);
-							Center2ModuleInfo|=1<<16;			//ÉèÖÃ·¢ËÍÊ±¼ä¼ä¸ô
+							Center2ModuleInfo|=1<<16;			//ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							ReCenterTlV.type=ProA.type;
 							ReCenterTlV.length=0x00;
 						}
 				}
 			if(fcunid==CKSSSJ)
 				{
-					Center2ModuleInfo|=1<<14;						//²éÑ¯µ±Ç°Êý¾ß
+					Center2ModuleInfo|=1<<14;						//ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 				}
 			if(fcunid==OTACMD)
 				{
-					Center2ModuleInfo|=1<<10;						//Ô¶³ÌÉý¼¶
+					Center2ModuleInfo|=1<<10;						//Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				}
 			
 		}
@@ -735,25 +742,25 @@ void DataCore(u8 *databuf,u8 len)
 			res=JsLength(databuf,len);
 			if(res)
 				{
-					Center2ModuleInfo|=1<<0;	       //Êý¾Ý³¤¶È´íÎó
+					Center2ModuleInfo|=1<<0;	       //ï¿½ï¿½ï¿½Ý³ï¿½ï¿½È´ï¿½ï¿½ï¿½
 					return;
 				}
 			res=JsCrcCode(databuf,len);
 			if(res)
 				{
-					Center2ModuleInfo|=1<<1;		//crcÐ£ÑéÊ§°Ü
+					Center2ModuleInfo|=1<<1;		//crcÐ£ï¿½ï¿½Ê§ï¿½ï¿½
 					return;
 				}
 			res=JsVersion(databuf);
 			if(res)
 				{
-					Center2ModuleInfo|=1<<2;		//°æ±¾ºÅ²»Ò»ÖÂ
+					Center2ModuleInfo|=1<<2;		//ï¿½æ±¾ï¿½Å²ï¿½Ò»ï¿½ï¿½
 					return;
 				}
 			res=JsSysSerNum(databuf);
 			if(res)
 				{
-					Center2ModuleInfo|=1<<3;		//Ö÷ID´íÎó
+					Center2ModuleInfo|=1<<3;		//ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½
 					return;
 				}
 			Center2ModuleLen=18;

@@ -32,23 +32,23 @@
 
 typedef struct 
 {
-	u32 HandInter;			//设置握手时间间隔
-	u8 CallMode;				//设置自动上传时间间隔
+	u32 HandInter;			//锟斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷
+	u8 CallMode;				//锟斤拷锟斤拷锟皆讹拷锟较达拷时锟斤拷锟斤拷锟斤拷
 	u32 Interval;
 	u32 Length;
-	u32 SpedLmt[2]; 			//设置超速
-	u32 Spedtime;			//真正延迟时间
-	u32 SysTime;			//系统总时间
-	u16 ACCoffDelay;               //ACC断开后的延迟时间
-	u8 CenterIP[16];			//IP地址			
-	u8 CenterPort[6];			//端口号
+	u32 SpedLmt[2]; 			//锟斤拷锟矫筹拷锟斤拷
+	u32 Spedtime;			//锟斤拷锟斤拷锟接筹拷时锟斤拷
+	u32 SysTime;			//系统锟斤拷时锟斤拷
+	u16 ACCoffDelay;               //ACC锟较匡拷锟斤拷锟斤拷锟接筹拷时锟斤拷
+	u8 CenterIP[16];			//IP锟斤拷址			
+	u8 CenterPort[6];			//锟剿口猴拷
 	u8 SN[16];				//SN
-	u8 TCPorUDP;			//设置：1是TCP，0是UDP
-	u8 Passwd[20];			//设置密码
-	u8 ProductID[20];			//产品ID
+	u8 TCPorUDP;			//锟斤拷锟矫ｏ拷1锟斤拷TCP锟斤拷0锟斤拷UDP
+	u8 Passwd[20];			//锟斤拷锟斤拷锟斤拷锟斤拷
+	u8 ProductID[20];			//锟斤拷品ID
 	u8 Centerapn[20];
 	u8 LbsOpen;
-	u8 saveflag;				//保存标志
+	u8 saveflag;				//锟斤拷锟斤拷锟斤拷志
 }_system_setings;
 
 
@@ -60,7 +60,7 @@ extern Enum_PinName LED1;
 extern Enum_PinName LED2;
 extern Enum_PinName LED3;
 
-
+//???
 typedef struct
 {
 	u8 packets_Send_sn[16];
