@@ -1,0 +1,286 @@
+ril/src/ril_atResponse.c: In function 'Ql_RIL_AT_SetErrCode':
+ril/src/ril_atResponse.c:50:1: warning: control reaches end of non-void function [-Wreturn-type]
+ril/src/ril_audio.c: In function 'ATResponse_AUD_handler':
+ril/src/ril_audio.c:398:5: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+ril/src/ril_bluetooth.c: In function 'OnURCHandler_BTDisconn':
+ril/src/ril_bluetooth.c:1531:10: warning: unused variable 'profileId' [-Wunused-variable]
+ril/src/ril_gps.c: In function 'RIL_GPS_Read':
+ril/src/ril_gps.c:71:5: warning: pointer targets in passing argument 1 of 'Ql_strlen' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:54:7: note: expected 'const char *' but argument is of type 'u8 *'
+ril/src/ril_gps.c:71:5: warning: pointer targets in passing argument 1 of 'Ql_strncmp' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:52:7: note: expected 'const char *' but argument is of type 'u8 *'
+ril/src/ril_gps.c:84:9: warning: pointer targets in passing argument 2 of 'Ql_strcpy' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:47:7: note: expected 'const char *' but argument is of type 'u8 *'
+ril/src/ril_gps.c: In function 'ATResponse_GPSRead_Hdlr':
+ril/src/ril_gps.c:95:7: warning: unused variable 'strTmp' [-Wunused-variable]
+ril/src/ril_gps.c:93:8: warning: unused variable 'p2' [-Wunused-variable]
+ril/src/ril_gps.c:92:8: warning: unused variable 'p1' [-Wunused-variable]
+ril/src/ril_gps.c: In function 'OnURCHandler_GPSCMD':
+ril/src/ril_gps.c:262:4: warning: passing argument 1 of 'callback_GPSCMD' discards 'const' qualifier from pointer target type [enabled by default]
+ril/src/ril_gps.c:262:4: note: expected 'char *' but argument is of type 'const char *'
+ril/src/ril_network.c: In function 'ATRsp_COPS_Handler':
+ril/src/ril_network.c:501:14: warning: unused variable 'str' [-Wunused-variable]
+ril/src/ril_ntp.c: In function 'OnURCHandler_NTPCMD':
+ril/src/ril_ntp.c:50:4: warning: passing argument 1 of 'callback_NTPCMD' discards 'const' qualifier from pointer target type [enabled by default]
+ril/src/ril_ntp.c:50:4: note: expected 'char *' but argument is of type 'const char *'
+example/nema_pro.c: In function 'read_gps_I2C_buffer':
+example/nema_pro.c:172:9: warning: unused variable 'realwrlen' [-Wunused-variable]
+example/nema_pro.c: In function 'extract_nmea':
+example/nema_pro.c:192:5: warning: unused variable 'nmea_buf' [-Wunused-variable]
+example/nema_pro.c:191:9: warning: unused variable 'realwrlen' [-Wunused-variable]
+example/nema_pro.c: In function 'iop_inst_avail':
+example/nema_pro.c:285:21: warning: operation on 'id_que_tail' may be undefined [-Wsequence-point]
+example/nema_pro.c: In function 'iop_get_inst':
+example/nema_pro.c:323:13: warning: operation on 'idx' may be undefined [-Wsequence-point]
+example/nema_pro.c: In function 'iop_pcrx_nmea':
+example/nema_pro.c:355:25: warning: operation on 'id_que_head' may be undefined [-Wsequence-point]
+example/nema_pro.c:360:29: warning: operation on 'id_que_tail' may be undefined [-Wsequence-point]
+example/nema_pro.c:381:29: warning: operation on 'rx_que_head' may be undefined [-Wsequence-point]
+example/nema_pro.c:387:29: warning: operation on 'rx_que_head' may be undefined [-Wsequence-point]
+example/nema_pro.c:407:25: warning: operation on 'rx_que_head' may be undefined [-Wsequence-point]
+example/utility.c: In function 'Check_Separator':
+example/utility.c:45:5: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+example/utility.c:52:5: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+example/utility.c:59:5: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+example/utility.c:42:11: warning: unused variable 'pChar2' [-Wunused-variable]
+example/utility.c: In function 'Analyse_Command':
+example/utility.c:103:5: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+example/utility.c:120:17: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+custom/flash.c: In function 'ReadFlashParamsNew':
+custom/flash.c:21:3: warning: pointer targets in passing argument 1 of 'Ql_FS_CheckDir' differ in signedness [-Wpointer-sign]
+include/ql_fs.h:476:5: note: expected 'char *' but argument is of type 'u8 *'
+custom/flash.c:24:7: warning: pointer targets in passing argument 1 of 'Ql_FS_CreateDir' differ in signedness [-Wpointer-sign]
+include/ql_fs.h:431:5: note: expected 'char *' but argument is of type 'u8 *'
+custom/flash.c:26:3: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/flash.c:26:3: note: expected 'char *' but argument is of type 'u8 *'
+custom/flash.c:27:3: warning: pointer targets in passing argument 1 of 'Ql_FS_Open' differ in signedness [-Wpointer-sign]
+include/ql_fs.h:124:5: note: expected 'char *' but argument is of type 'u8 *'
+custom/flash.c:31:5: warning: pointer targets in passing argument 1 of 'Ql_FS_Open' differ in signedness [-Wpointer-sign]
+include/ql_fs.h:124:5: note: expected 'char *' but argument is of type 'u8 *'
+custom/flash.c:35:6: warning: passing argument 2 of 'Ql_FS_Write' from incompatible pointer type [enabled by default]
+include/ql_fs.h:223:5: note: expected 'u8 *' but argument is of type 'struct _system_setings *'
+custom/flash.c:42:6: warning: passing argument 2 of 'Ql_FS_Read' from incompatible pointer type [enabled by default]
+include/ql_fs.h:187:5: note: expected 'u8 *' but argument is of type 'struct _system_setings *'
+custom/flash.c: In function 'SaveFlashParamsNew':
+custom/flash.c:53:2: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/flash.c:53:2: note: expected 'char *' but argument is of type 'u8 *'
+custom/flash.c:54:2: warning: pointer targets in passing argument 1 of 'Ql_FS_Open' differ in signedness [-Wpointer-sign]
+include/ql_fs.h:124:5: note: expected 'char *' but argument is of type 'u8 *'
+custom/flash.c:55:2: warning: passing argument 2 of 'Ql_FS_Write' from incompatible pointer type [enabled by default]
+include/ql_fs.h:223:5: note: expected 'u8 *' but argument is of type 'struct _system_setings *'
+custom/flash.c:51:11: warning: unused variable 'ret' [-Wunused-variable]
+custom/flash.c: At top level:
+custom/uart.h:13:13: warning: 'DBG_BUFFER' defined but not used [-Wunused-variable]
+custom/gps.c: In function 'GetLocationValue':
+custom/gps.c:47:2: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/gps.c:47:2: note: expected 'char *' but argument is of type 'u8 *'
+custom/gps.c:57:2: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/gps.c:57:2: note: expected 'char *' but argument is of type 'u8 *'
+custom/gps.c: In function 'GetLbsData':
+custom/gps.c:64:2: warning: implicit declaration of function 'M203C_send_Abnormalcmd' [-Wimplicit-function-declaration]
+custom/gps.c: In function 'MY_ATResponse_Read_Hdlr':
+custom/gps.c:115:2: warning: implicit declaration of function 'strstr' [-Wimplicit-function-declaration]
+custom/gps.c:115:10: warning: incompatible implicit declaration of built-in function 'strstr' [enabled by default]
+custom/gps.c:130:8: warning: implicit declaration of function 'strtol' [-Wimplicit-function-declaration]
+custom/gps.c:149:1: warning: no return statement in function returning non-void [-Wreturn-type]
+custom/gps.c: In function 'NMEA_GPRMC_Analysis':
+custom/gps.c:260:10: warning: incompatible implicit declaration of built-in function 'strstr' [enabled by default]
+custom/gps.c: In function 'GPS_package':
+custom/gps.c:344:5: warning: unused variable 'gps_byte' [-Wunused-variable]
+custom/gps.c:343:5: warning: unused variable 'hex' [-Wunused-variable]
+custom/gps.c:342:5: warning: unused variable 'ubuf' [-Wunused-variable]
+custom/gps.c: At top level:
+custom/gps.c:110:12: warning: 'MY_ATResponse_Read_Hdlr' defined but not used [-Wunused-function]
+custom/gps.c: In function 'GPS_package':
+custom/gps.c:450:4: warning: 'Warning' may be used uninitialized in this function [-Wuninitialized]
+custom/main.c: In function 'proc_main_task':
+custom/main.c:35:7: warning: unused variable 'i' [-Wunused-variable]
+custom/main.c: In function 'proc_subtask1':
+custom/main.c:80:7: warning: implicit declaration of function 'M203C_tcpudp_conncet' [-Wimplicit-function-declaration]
+custom/main.c:101:9: warning: implicit declaration of function 'M203CSendDataNoAck' [-Wimplicit-function-declaration]
+custom/main.c:103:8: warning: implicit declaration of function 'M203CSendDataCheckOK' [-Wimplicit-function-declaration]
+custom/main.c:116:10: warning: implicit declaration of function 'GetLbsData' [-Wimplicit-function-declaration]
+custom/main.c:182:7: warning: implicit declaration of function 'Recive_OutData' [-Wimplicit-function-declaration]
+custom/main.c: In function 'proc_subtask2':
+custom/main.c:221:8: warning: implicit declaration of function 'GetGsmCsq' [-Wimplicit-function-declaration]
+custom/main.c:222:8: warning: implicit declaration of function 'GetModuVol' [-Wimplicit-function-declaration]
+custom/main.c:223:8: warning: implicit declaration of function 'GetGpsData' [-Wimplicit-function-declaration]
+custom/main.c: In function 'proc_subtask5':
+custom/main.c:275:9: warning: unused variable 'i' [-Wunused-variable]
+custom/new_socket.c: In function 'M203C_send_cmd':
+custom/new_socket.c:45:2: warning: pointer targets in passing argument 1 of 'Ql_strlen' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:54:7: note: expected 'const char *' but argument is of type 'u8 *'
+custom/new_socket.c: In function 'M203C_send_Epocmd':
+custom/new_socket.c:65:2: warning: pointer targets in passing argument 1 of 'Ql_strlen' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:54:7: note: expected 'const char *' but argument is of type 'u8 *'
+custom/new_socket.c: In function 'M203C_send_Abnormalcmd':
+custom/new_socket.c:86:2: warning: pointer targets in passing argument 1 of 'Ql_strlen' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:54:7: note: expected 'const char *' but argument is of type 'u8 *'
+custom/new_socket.c: In function 'M203C_GetNetStsu':
+custom/new_socket.c:104:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c: In function 'M203C_init':
+custom/new_socket.c:118:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:132:2: warning: pointer targets in passing argument 1 of 'M203C_send_Epocmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:60:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:135:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:138:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:141:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:147:2: warning: pointer targets in passing argument 1 of 'M203C_send_Abnormalcmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:81:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:150:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:153:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:156:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c: In function 'M203C_gprs_init':
+custom/new_socket.c:172:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:172:2: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+custom/new_socket.c:175:2: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+custom/new_socket.c:179:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:179:2: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+custom/new_socket.c:182:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:182:2: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+custom/new_socket.c:166:5: warning: unused variable 'tcent' [-Wunused-variable]
+custom/new_socket.c: In function 'M203C_Ch2Gprs':
+custom/new_socket.c:192:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:192:2: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+custom/new_socket.c: In function 'M203C_EPO_Init':
+custom/new_socket.c:203:2: warning: pointer targets in passing argument 1 of 'M203C_send_Epocmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:60:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:206:2: warning: pointer targets in passing argument 1 of 'M203C_send_Epocmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:60:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:216:4: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:216:4: note: expected 'char *' but argument is of type 'u8 *'
+custom/new_socket.c:226:2: warning: pointer targets in passing argument 1 of 'M203C_send_Epocmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:60:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c:229:2: warning: pointer targets in passing argument 1 of 'M203C_send_Epocmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:60:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c: In function 'M203C_tcpudp_conncet':
+custom/new_socket.c:249:2: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+custom/new_socket.c:271:4: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+custom/new_socket.c: In function 'GetGsmCsq':
+custom/new_socket.c:320:2: warning: pointer targets in passing argument 1 of 'M203C_send_cmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:40:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c: In function 'GetModuVol':
+custom/new_socket.c:325:2: warning: pointer targets in passing argument 1 of 'M203C_send_Abnormalcmd' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:81:4: note: expected 'u8 *' but argument is of type 'char *'
+custom/new_socket.c: In function 'AysConet2Core':
+custom/new_socket.c:369:2: warning: implicit declaration of function 'strstr' [-Wimplicit-function-declaration]
+custom/new_socket.c:369:11: warning: incompatible implicit declaration of built-in function 'strstr' [enabled by default]
+custom/new_socket.c:435:14: warning: implicit declaration of function 'GetCsQ' [-Wimplicit-function-declaration]
+custom/new_socket.c:453:12: warning: implicit declaration of function 'GetVol' [-Wimplicit-function-declaration]
+custom/new_socket.c:583:10: warning: implicit declaration of function 'GetLocationValue' [-Wimplicit-function-declaration]
+custom/new_socket.c:735:4: warning: implicit declaration of function 'DataCore' [-Wimplicit-function-declaration]
+custom/new_socket.c:740:4: warning: implicit declaration of function 'GpsAnalysis' [-Wimplicit-function-declaration]
+custom/new_socket.c:741:4: warning: implicit declaration of function 'GPS_package' [-Wimplicit-function-declaration]
+custom/new_socket.c:747:4: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/new_socket.c:747:4: note: expected 'char *' but argument is of type 'u8 *'
+custom/new_socket.c: In function 'M203C_GetNetStsu':
+custom/new_socket.c:112:1: warning: control reaches end of non-void function [-Wreturn-type]
+custom/pro.c: In function 'ProPasswdInit':
+custom/pro.c:327:2: warning: pointer targets in passing argument 1 of 'Ql_strlen' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:54:7: note: expected 'const char *' but argument is of type 'u8 *'
+custom/pro.c: In function 'ProMpu6050ValuesInit':
+custom/pro.c:377:5: warning: unused variable 'i' [-Wunused-variable]
+custom/pro.c: In function 'Tlv_PawssAnalys':
+custom/pro.c:514:2: warning: pointer targets in passing argument 1 of 'Ql_strlen' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:54:7: note: expected 'const char *' but argument is of type 'u8 *'
+custom/pro.c: In function 'ProReadSendTValuesInit':
+custom/pro.c:563:5: warning: unused variable 'i' [-Wunused-variable]
+custom/pro.c: In function 'BufAnalys':
+custom/pro.c:660:8: warning: implicit declaration of function 'StRTC_Set' [-Wimplicit-function-declaration]
+custom/pro.c:661:8: warning: implicit declaration of function 'StRTC_Get' [-Wimplicit-function-declaration]
+custom/pro.c:688:10: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/pro.c:688:10: note: expected 'char *' but argument is of type 'u8 *'
+custom/pro.c:689:10: warning: pointer targets in passing argument 1 of 'Ql_strcat' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:49:7: note: expected 'char *' but argument is of type 'u8 *'
+custom/pro.c:689:10: warning: pointer targets in passing argument 2 of 'Ql_strcat' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:49:7: note: expected 'const char *' but argument is of type 'u8 *'
+custom/pro.c:690:10: warning: implicit declaration of function 'SaveFlashParamsNew' [-Wimplicit-function-declaration]
+custom/pro.c: In function 'Recive_OutData':
+custom/pro.c:797:6: warning: implicit declaration of function 'M203CSendDataNoAck' [-Wimplicit-function-declaration]
+custom/pro.c: In function 'ProValuesInit':
+custom/pro.c:235:56: warning: array subscript is above array bounds [-Warray-bounds]
+custom/pro.c:235:56: warning: array subscript is above array bounds [-Warray-bounds]
+custom/sys.c:19:1: warning: pointer targets in initialization differ in signedness [-Wpointer-sign]
+custom/sys.c:19:1: warning: (near initialization for 'modetbl[0]') [-Wpointer-sign]
+custom/sys.c:19:1: warning: pointer targets in initialization differ in signedness [-Wpointer-sign]
+custom/sys.c:19:1: warning: (near initialization for 'modetbl[1]') [-Wpointer-sign]
+custom/sys.c: In function 'InternetsetSN_AnalysisFor808':
+custom/sys.c:71:6: warning: implicit declaration of function 'mid' [-Wimplicit-function-declaration]
+custom/sys.c:72:6: warning: implicit declaration of function 'strtol' [-Wimplicit-function-declaration]
+custom/sys.c: In function 'IsSnHavaSet':
+custom/sys.c:131:2: warning: implicit declaration of function 'strstr' [-Wimplicit-function-declaration]
+custom/sys.c:131:9: warning: incompatible implicit declaration of built-in function 'strstr' [enabled by default]
+custom/tiem.c: In function 'leapYear':
+custom/tiem.c:50:5: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+custom/tiem.c: In function 'TimeInit':
+custom/tiem.c:114:4: warning: implicit declaration of function 'RTC_Set_UTC' [-Wimplicit-function-declaration]
+custom/tiem.c: In function 'GetTimeSrc':
+custom/tiem.c:161:2: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/tiem.c:161:2: note: expected 'char *' but argument is of type 'u8 *'
+custom/tiem.c:162:2: warning: implicit declaration of function 'strtol' [-Wimplicit-function-declaration]
+custom/tiem.c: At top level:
+custom/tiem.c:169:6: warning: conflicting types for 'RTC_Set_UTC' [enabled by default]
+custom/tiem.c:114:4: note: previous implicit declaration of 'RTC_Set_UTC' was here
+custom/tiem.c: In function 'RTC_Set_UTC':
+custom/tiem.c:172:2: warning: pointer targets in passing argument 1 of 'Ql_sprintf' differ in signedness [-Wpointer-sign]
+custom/tiem.c:172:2: note: expected 'char *' but argument is of type 'u8 *'
+custom/tiem.c:174:2: warning: implicit declaration of function 'M203C_send_Epocmd' [-Wimplicit-function-declaration]
+custom/tiem.c: In function 'RTC_Get_UTC':
+custom/tiem.c:185:2: warning: implicit declaration of function 'strstr' [-Wimplicit-function-declaration]
+custom/tiem.c:185:9: warning: incompatible implicit declaration of built-in function 'strstr' [enabled by default]
+custom/tiem.c: In function 'ChLoc2Utc':
+custom/tiem.c:267:6: warning: unused variable 'totalSeconds' [-Wunused-variable]
+custom/uart.c: In function 'Callback_UART_Hdlr':
+custom/uart.c:57:9: warning: implicit declaration of function 'AysConet2Core' [-Wimplicit-function-declaration]
+custom/uart.c:58:9: warning: implicit declaration of function 'AysOtherData' [-Wimplicit-function-declaration]
+custom/uart.c:47:7: warning: unused variable 'iRet' [-Wunused-variable]
+custom/uart.c: In function 'UartInit':
+custom/uart.c:74:7: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+custom/uart.c: In function 'User_Commad_Ays':
+custom/uart.c:248:4: warning: implicit declaration of function 'IsSnHavaSet' [-Wimplicit-function-declaration]
+custom/uart.c:254:6: warning: implicit declaration of function 'InternetsetSN_AnalysisFor808' [-Wimplicit-function-declaration]
+custom/uart.c:357:4: warning: passing argument 1 of 'GetTime2Use' from incompatible pointer type [enabled by default]
+custom/uart.c:184:6: note: expected 'u8 *' but argument is of type 's32 *'
+custom/uart.c:357:4: warning: passing argument 2 of 'GetTime2Use' from incompatible pointer type [enabled by default]
+custom/uart.c:184:6: note: expected 'u8 *' but argument is of type 's32 *'
+custom/uart.c:357:4: warning: passing argument 3 of 'GetTime2Use' from incompatible pointer type [enabled by default]
+custom/uart.c:184:6: note: expected 'u8 *' but argument is of type 's32 *'
+custom/uart.c:357:4: warning: passing argument 4 of 'GetTime2Use' from incompatible pointer type [enabled by default]
+custom/uart.c:184:6: note: expected 'u8 *' but argument is of type 's32 *'
+custom/uart.c:357:4: warning: passing argument 5 of 'GetTime2Use' from incompatible pointer type [enabled by default]
+custom/uart.c:184:6: note: expected 'u8 *' but argument is of type 's32 *'
+custom/uart.c:357:4: warning: passing argument 6 of 'GetTime2Use' from incompatible pointer type [enabled by default]
+custom/uart.c:184:6: note: expected 'u8 *' but argument is of type 's32 *'
+custom/uart.c:379:4: warning: pointer targets in passing argument 1 of 'Ql_strlen' differ in signedness [-Wpointer-sign]
+include/ql_stdlib.h:54:7: note: expected 'const char *' but argument is of type 'u8 *'
+custom/uart.c:217:6: warning: unused variable 'year' [-Wunused-variable]
+custom/uart.c:216:5: warning: unused variable 'temp' [-Wunused-variable]
+custom/uart.c:215:5: warning: unused variable 'pataner' [-Wunused-variable]
+custom/uart.c:213:5: warning: unused variable 'i' [-Wunused-variable]
+custom/uart.c: At top level:
+custom/uart.c:399:6: warning: conflicting types for 'AysOtherData' [enabled by default]
+custom/uart.c:58:29: note: previous implicit declaration of 'AysOtherData' was here
+custom/fota/src/fota_ftp.c: In function 'FTP_FotaMain':
+custom/fota/src/fota_ftp.c:44:9: warning: variable 'retValue' set but not used [-Wunused-but-set-variable]
+custom/fota/src/fota_ftp.c: In function 'FTP_Callback_OnDownload':
+custom/fota/src/fota_ftp.c:83:10: warning: variable 'retValue' set but not used [-Wunused-but-set-variable]
+custom/fota/src/fota_ftp.c:82:9: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+custom/fota/src/fota_ftp.c: In function 'FTP_Program':
+custom/fota/src/fota_ftp.c:124:10: warning: variable 'retValue' set but not used [-Wunused-but-set-variable]
+custom/fota/src/fota_ftp.c: In function 'FTP_Callback_OnDownload':
+custom/fota/src/fota_ftp.c:315:35: warning: 'retValue' may be used uninitialized in this function [-Wuninitialized]
+custom/fota/src/fota_ftp.c:198:10: note: 'retValue' was declared here
+custom/fota/src/fota_main.c: In function 'Ql_FOTA_StartUpgrade':
+custom/fota/src/fota_main.c:33:10: warning: variable 'retValue' set but not used [-Wunused-but-set-variable]

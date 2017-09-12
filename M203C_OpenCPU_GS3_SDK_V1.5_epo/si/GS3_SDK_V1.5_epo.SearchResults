@@ -1,0 +1,6 @@
+---- LED3_L Matches (5 in 4 files) ----
+Main.c (custom):	  		//LED3_L;
+Sys.c (custom):	 LED3_L;
+Sys.h (custom):#define LED3_L	 Ql_GPIO_SetLevel(LED3, PINLEVEL_LOW);
+Sys.h (custom):#define LED3_L	 Ql_GPIO_SetLevel(LED3, PINLEVEL_HIGH);
+Uart.c (custom):			LED3_L;
