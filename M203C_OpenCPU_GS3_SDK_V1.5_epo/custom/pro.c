@@ -211,19 +211,26 @@ void ProSigEndInit(void)
 	Tlv_Init(CurrtLen,&ProSt,&CurrtLen);
 }
 
-
+// important part
 void ProValuesInit(void)
 {
 	u8 i;
 	tlv ProV;
+
+	// sn number
 	ProV.type=0xA095;
 	ProV.length=0x0006;
 	for(i=0;i<ProV.length;i++)ProV.value[i]=Pro.subsn[i];
 	Tlv_Init(CurrtLen,&ProV,&CurrtLen);
+
+	// time
 	ProV.type= 0x0004;
 	ProV.length=0x0006;
 	for(i=0;i<ProV.length;i++)ProV.value[i]=Pro.time[i];
 	Tlv_Init(CurrtLen,&ProV,&CurrtLen);
+
+	// use either gps or gnss data 0x01 gps avaialble
+	// longtitude or latitude should /1000 000
 	if(Pro.gpssta==0x01)
 		{
 			ProV.type=0x5078;
@@ -231,10 +238,12 @@ void ProValuesInit(void)
 			for(i=0;i<4;i++)ProV.value[i]=my_core_data.jingdu[i+4];
 			for(i=0;i<4;i++)ProV.value[i+4]=my_core_data.weidu[i+4];
 			Tlv_Init(CurrtLen,&ProV,&CurrtLen);
+
 			ProV.type=0x507B;
 			ProV.length=0x0002;
 			for(i=0;i<2;i++)ProV.value[i]=my_core_data.sudu[i+2];
 			Tlv_Init(CurrtLen,&ProV,&CurrtLen);
+			
 			ProV.type=0x507D;
 			ProV.length=0x0002;
 			for(i=0;i<2;i++)ProV.value[i]=my_core_data.fangxiang[i+2];
@@ -348,7 +357,9 @@ void CoreDataInitNew(u8 *len,u16 funcid)
 	plen=CurrtLen;
 	ProValuesInit();
 	ProMpu6050ValuesInit();
+
 	Tlv_Init(CurrtLen,&CenterIDTlV,&CurrtLen);
+	
 	elen=CurrtLen-plen;
 	ProPasswdInit(plen,elen);
 	ProSigEndInit();
@@ -369,6 +380,7 @@ void CoreDataInitNew2(u8 *len,u16 funcid)
 	plen=CurrtLen;
 	ProValuesInit();
 	ProMpu6050ValuesInit();
+
 	elen=CurrtLen-plen;
 	ProPasswdInit(plen,elen);
 	ProSigEndInit();

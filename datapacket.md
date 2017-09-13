@@ -19,9 +19,11 @@ A095 0006    // tlv data type + length ProValuesInit
 0001 0203 0405 // tlv value Pro.subsn
 0004 0006    // tlv       Pro.time
 1709 0816 5446 // time
+
 5140 0008    // LBS location flag, GPS is 0x5078 0x0008
 073B A380     // my_core_data.latitude
 01DC 6522     // my_core_data.longitude
+
 4E21 0002    // tlv
 0000         // pro.tem
 4E22 0002    // tlv

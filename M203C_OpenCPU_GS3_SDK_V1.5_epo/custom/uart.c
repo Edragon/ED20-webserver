@@ -207,7 +207,7 @@ void GetTime2Use(u8 *year,u8 *month,u8 *date,u8 *hour,u8 *min,u8 *seond,u8 *sbuf
 
 }
 
-
+// user command setip, setpot, etc....
 void User_Commad_Ays(u8 *buf,u8 len)
 {
 	u8 i;

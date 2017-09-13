@@ -33,10 +33,10 @@ void proc_main_task(s32 taskId)
 {
 
    u8 i;
-   ST_MSG msg;
-   power_drv_init();
-   UartInit();
-   SYS_Parameter_Init();
+   ST_MSG msg; 
+   power_drv_init();                             // LEDs 
+   UartInit();                                   // main callback handler, following at commands will trigger this handler, network - AysConet2Core
+   SYS_Parameter_Init();                         // print system info
     while (1)
     {
 
@@ -73,11 +73,12 @@ void proc_subtask1(s32 TaskId)
 	         Ql_Sleep(20);
 		if(BootInfo==0xFF)
 			{
-				if(SystemFlow==0)
+				if(SystemFlow==0) // basic init
 					{
-						M203C_init();
+						M203C_init();               // init send AT commands, and use uart callback
 						M203C_gprs_init();
 						res=M203C_tcpudp_conncet((u8)systemset.TCPorUDP,systemset.CenterIP,systemset.CenterPort,0);
+						//reset = 1 reset it
 						if(res==1)
 							{
 								mprintf("\r\n++++Reset System++++\r\n");
@@ -87,6 +88,7 @@ void proc_subtask1(s32 TaskId)
 							}
 						SystemFlow=1;
 					}
+					//LBS
 				if(SystemFlow==1&&initflow==0)
 					{
 						 M203CIsBusy=1;
@@ -94,7 +96,7 @@ void proc_subtask1(s32 TaskId)
 						  if(gpsx.useorno!=65)
 						  	{
 						  		Ql_Sleep(8000);
-						  		GetLbsData();
+						  		GetLbsData();  // get LBS data
 						  	}
 #endif
 						  	CoreDataInitNew2(&res,0x4E02);
@@ -105,6 +107,7 @@ void proc_subtask1(s32 TaskId)
 						  M203CIsBusy=0;
 						  initflow=1;
 					}
+					
 				if(SystemFlow==1&&initflow==1)
 					{
 						M203CIsBusy=1;
@@ -114,7 +117,7 @@ void proc_subtask1(s32 TaskId)
 						 		pregps=0;
 						 		Ql_Sleep(3000);
 								 GetLbsData();
-								 M203C_EPO_Init(Jdbuf,Wdbuf);
+								 M203C_EPO_Init(Jdbuf,Wdbuf);   // init with latitude longtitude 
 								 M203C_Ch2Gprs();
 						 	}
 						  CoreDataInitNew2(&res,0x4E02);
@@ -129,7 +132,7 @@ void proc_subtask1(s32 TaskId)
 						 
 					}
 				
-				if(SystemFlow==2&&initflow==2)
+				if(SystemFlow==2&&initflow==2)  // system init, LBS, EPO all ready
 					{
 						jishis++;
 						if(gpsx.useorno==65&&pregps==0)
@@ -219,7 +222,7 @@ void proc_subtask2(s32 TaskId)
 					if(!M203CIsBusy)
 						{
 							GetGsmCsq();
-							GetModuVol();
+							GetModuVol(); //bettery charge
 							GetGpsData();
 						}
 					cent=0;

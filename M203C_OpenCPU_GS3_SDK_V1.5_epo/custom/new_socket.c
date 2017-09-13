@@ -186,7 +186,7 @@ void M203C_gprs_init(void)
 	
 	
 }
-
+//  AT+QIFGCNT   Select a Context as Foreground Context 
 void M203C_Ch2Gprs(void)
 {
 	M203C_send_cmd("AT+QIFGCNT=0",1<<8,50);
@@ -440,6 +440,7 @@ void AysConet2Core(u8 *buf,u8 len)
 								}
 							
 						}
+						// battery
 					p=(u8*)strstr((const char *)buf,"AT+CBC");
 					if(p!=NULL)
 						{
@@ -456,6 +457,7 @@ void AysConet2Core(u8 *buf,u8 len)
 										}
 								}
 						}
+						// message format
 					p=(u8*)strstr((const char *)buf,"AT+CMGF");
 					if(p!=NULL)
 						{
@@ -573,6 +575,7 @@ void AysConet2Core(u8 *buf,u8 len)
 								}
 							
 						}
+
 					p=(u8*)strstr((const char *)buf,"AT+QCELLLOC");
 					if(p!=NULL)
 						{
@@ -699,6 +702,7 @@ void AysConet2Core(u8 *buf,u8 len)
 				{
 					CoreReDataBit|=1<<16;
 				}
+			//  AT+QCELLLOC Get Location Information by QuecLocator	
 			p=(u8*)strstr((const char *)buf,"+QCELLLOC:");
 			if(p!=NULL)
 				{
