@@ -276,11 +276,11 @@ SERESET:
 }
 
 
-u8 M203CSendDataNoAck(u8 *data,u16 length,u8 curline)
+u8 M203CSendDataNoAck(u8 *data, u16 length, u8 curline)
 {
 	u8 res=0,i;
 	u8 GcCmdIntfeer[20];
-	Ql_sprintf((char*)GcCmdIntfeer,"AT+QISEND=%d,%d",curline,length);
+	Ql_sprintf((char*)GcCmdIntfeer,"AT+QISEND=%d,%d",curline,length);   // AT
 	res=M203C_send_Abnormalcmd(GcCmdIntfeer,1<<1,1000);
 	if(res)return res;
 	else
@@ -291,7 +291,7 @@ u8 M203CSendDataNoAck(u8 *data,u16 length,u8 curline)
 					for(i=0;i<length;i++)mprintf("%02X",data[i]);
 					mprintf("\r\n");
 				}
-			Ql_UART_Write(VIRTUAL_PORT1, (u8*)data, length);
+			Ql_UART_Write(VIRTUAL_PORT1, (u8*)data, length);  // write data to UART
 		}
 	return res;
 	
@@ -303,9 +303,9 @@ u8 M203CSendDataCheckOK(u16 waittime)
 	while(--waittime)	
 		{
 			Ql_Sleep(10);
-			if(CoreAbnormalBit&(1<<2))break;
+			if(CoreAbnormalBit&(1<<2))break;          // send OK
 		}
-	CoreAbnormalBit&=~(1<<2);
+	CoreAbnormalBit&=~(1<<2);    
 	if(waittime==0)res=1;
 	return res;
 }
@@ -722,7 +722,7 @@ void AysConet2Core(u8 *buf,u8 len)
 			p=(u8*)strstr((const char *)buf,"SEND OK");
 			if(p!=NULL)
 				{
-					CoreAbnormalBit|=1<<2;
+					CoreAbnormalBit|=1<<2;              // send OK 
 				}
 			
 		}

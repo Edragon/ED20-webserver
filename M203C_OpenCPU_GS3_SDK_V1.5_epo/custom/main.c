@@ -100,9 +100,9 @@ void proc_subtask1(s32 TaskId)
 						  	}
 #endif
 						  	CoreDataInitNew2(&res,0x4E02);
-						 	setime=M203CSendDataNoAck(PROBUF,res,0);
+						 	setime=M203CSendDataNoAck(PROBUF,res,0);  // send probuf data via AT+QISEND TCP
 							if(setime)goto  OVER;
-							setime=M203CSendDataCheckOK(500);
+							setime=M203CSendDataCheckOK(500);              
 							if(setime)goto  OVER;
 						  M203CIsBusy=0;
 						  initflow=1;
@@ -190,17 +190,17 @@ OVER:
 				if(initres==0)
 					{
 						initres=1;
-						mprintf("\r\nдё©Ин╢иХжцSN╨ебК,гКохиХжцSN╨ебК!!\r\n");
-						mprintf("иХжццЭаН: $setsn xxxxxxxxxx\r\n");
-						mprintf("лАй╬:SN╨ебКлЫтздё©И╣д╠Йг╘иоцФ\r\n");
+						mprintf("\r\nдёО©╫О©╫н╢О©╫О©╫О©╫О©╫SNО©╫О©╫О©╫О©╫,О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫SNО©╫О©╫О©╫О©╫!!\r\n");
+						mprintf("О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫: $setsn xxxxxxxxxx\r\n");
+						mprintf("О©╫О©╫й╬:SNО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫дёО©╫О©╫О©╫д╠О©╫г╘О©╫О©╫О©╫О©╫\r\n");
 					}
 				errort++;
 				if(errort>100)
 					{
 						errort=0;
-						mprintf("\r\nдё©Ин╢иХжцSN╨ебК,гКохиХжцSN╨ебК!!\r\n");
-						mprintf("иХжццЭаН: $setsn xxxxxxxxxx\r\n");
-						mprintf("лАй╬:SN╨ебКлЫтздё©И╣д╠Йг╘иоцФ\r\n");
+						mprintf("\r\nдёО©╫О©╫н╢О©╫О©╫О©╫О©╫SNО©╫О©╫О©╫О©╫,О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫SNО©╫О©╫О©╫О©╫!!\r\n");
+						mprintf("О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫: $setsn xxxxxxxxxx\r\n");
+						mprintf("О©╫О©╫й╬:SNО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫дёО©╫О©╫О©╫д╠О©╫г╘О©╫О©╫О©╫О©╫\r\n");
 					}
 			}
 	    }    
