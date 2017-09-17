@@ -3,41 +3,71 @@ demo packet
 
 
 funtion start at void Head_Init(u16 func)
+
 7E7E         // --
+
 23235554      // version
+
 4E02         // Action
+
 0011         // packet times
+
 1709 0816 5446 // time
+
 00B6         // data length
+
 0001 0006    // tlv data type + length ProIdInit
+
 0011 6130 00FF // tlv data
+
 0005 0001    // tlv data type + length ProSigInit
+
 02           // tlv Value
 
 ProValuesInit
+
 A095 0006    // tlv data type + length ProValuesInit
+
 0001 0203 0405 // tlv value Pro.subsn
+
 0004 0006    // tlv       Pro.time
+
 1709 0816 5446 // time
 
 5140 0008    // LBS location flag, GPS is 0x5078 0x0008
+
 073B A380     // my_core_data.latitude
+
 01DC 6522     // my_core_data.longitude
 
 4E21 0002    // tlv
+
 0000         // pro.tem
+
 4E22 0002    // tlv
+
 0000         // pro.hum
-51A6 0002    
+
+51A6 0002 
+
 0000         // Pro.ChargIn
+
 51AC 0002 
+
 0000         // Pro.ChargOut
+
 A098 0001
+
 12           // Signal strength
+
 51A9 0002
+
 0000         // Pro.bvol
+
 51AB 0002
+
 01A0         // Pro.hvol  
+
 B010 0001    // CenterIDTlV
 
 7E7E 23235554 4E02 3756 170910184658 00B6 00010006 0011613000FF 00050001 02 A0950006 000102030405 00040006 170910184658 51400008 0739F358 01DBC676 4E210002 0000 4E220002 0000 51A60002 000051AC0002 0000 A0980001 13 51A90002 0000 51AB0002 016B B0100001 15B012000400018229B0A2000101B0A800040000000A55510009FFFFFFFFFFFFFFFFFF55520009FFFFFFFFFFFFFFFFFF555300090000 00FF FFFF FFFF FF00 0600 0103 0007 0002 F144
