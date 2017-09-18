@@ -6,7 +6,7 @@ funtion start at void Head_Init(u16 func)
 
 7E7E         // --
 
-23235554      // version
+2323 5554      // version
 
 4E02         // Action
 
@@ -28,7 +28,7 @@ ProValuesInit
 
 A095 0006    // tlv data type + length ProValuesInit
 
-0001 0203 0405 // tlv value Pro.subsn
+0001 0203 0405 // tlv value Pro.subsn -- not used
 
 0004 0006    // tlv       Pro.time
 
