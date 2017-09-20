@@ -9,7 +9,7 @@ import json
 import urllib2
 import thread
 
-def gmap(x, y, id):
+def gmap(x, y, id, tm, nums):
     # this is user GPS html address 
     f = open('/srv/www/iot.electrodragon.com/gps/%s.html' % id,'w')
     # this is API used in http --- > AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg
@@ -27,6 +27,7 @@ def gmap(x, y, id):
     </head>
     <body>
         <h3>My Electrodragon Tracker Demo</h3>
+        <h5>Module send times: %s, and module time: %s </h5>
         <div id="map"></div>
         <script>
         function initMap() {
@@ -46,8 +47,8 @@ def gmap(x, y, id):
         </script>
     </body>
     </html>
-    """ % ( str(y), str(x) )
-	
+    """ % ( str(nums), str(tm), str(y), str(x) )
+    
     f.writelines(gmap_page)
     print ("seccessfully write to html")
     f.close()
@@ -103,13 +104,15 @@ def restDATA(codec_data):
     hex_sn = findDATA("00010006", codec_data) # 12 long
 
     hex_sn_format = hex_sn[0]+hex_sn[1][0:4]
-	
+    hex_tm = "%s-%s%s" % (hex_time[0][0:6], hex_time[0][6:8], hex_time[1][0:4])
+    pcktimes = int(codec_data[16:20],16)
+
     print ("HEX DATE 3L- Y-N-D: %s" % hex_time[0][0:6])
     print ("HEX TIME 3L - H-M-S: %s" % hex_time[0][6:8]+hex_time[1][0:4])
     print ("HEX pro_ID 3L: %s" % hex_ID[0]+hex_ID[1][0:4] )
     print ("HEX user_SN 3L: %s" % hex_sn_format ) 
-	
-    return hex_sn_format
+    
+    return hex_sn_format, hex_tm, pcktimes
 
 
 def lbs_data(codec_data): 
@@ -141,7 +144,7 @@ def DATA_dandler(codec_data):
     # handle rest data
     rest_data = restDATA(codec_data)
     # send to html page
-    gmap(lbsDATA[0], lbsDATA[1], rest_data)
+    gmap(lbsDATA[0], lbsDATA[1], rest_data[0], rest_data[1], rest_data[2])
 
 
 def on_new_client(clientsocket,addr):
@@ -156,8 +159,6 @@ def on_new_client(clientsocket,addr):
             clientsocket.send("Received at Electrodragon tracker")
         else:
             clientsocket.send("you come from telnet?")
-
-        
         
     clientsocket.close()
 
@@ -194,7 +195,7 @@ while True:
             conn.send("server received you message.")
     else:
         print "still waiting"
-		
+        
 """
-		
-		
+        
+        
