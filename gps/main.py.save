@@ -4,54 +4,40 @@
 import socket
 import sys
 import struct
-#import select
+
 import json
 import urllib2
 
-def gmap(x, y, id):
-    #write_data = "%s, %s" % (str(y), str(x))
-    #print write_data
-    f = open('/srv/www/iot.electrodragon.com/gps/%s.html' % id,'w')
-    # AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg
-        
-    gmap_page = """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-        #map {
-            height: 800px;
-            width: 100%%;
-        }
-        </style>
-    </head>
-    <body>
-        <h3>My Electrodragon Tracker Demo</h3>
-        <div id="map"></div>
-        <script>
-        function initMap() {
-            var uluru = {lat: %s, lng: %s};
-            var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
-            center: uluru
-            });
-            var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-            });
-        }
-        </script>
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg&callback=initMap">
-        </script>
-    </body>
-    </html>
-    """ % ( str(y), str(x) )
+def gmap(x,y, id):
+	f = open('/var/www/html/%s.html' % id,'w')
 	
-    f.writelines(gmap_page)
-    print ("seccessfully write to html")
-    f.close()
-    #return gmap_page
+	gmap_page = """
+	<!DOCTYPE html>
+	<html>
+	<body>
+
+	<h1>Your tracker at Electrodragon.com</h1>
+
+	<div id="googleMap" style="width:100%;height:400px;"></div>
+
+	<script>
+	function myMap() {
+	var mapProp= {
+		center:new google.maps.LatLng(%s, %s),
+		zoom:5,
+	};
+	var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	}
+	</script>
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg&callback=myMap"></script>
+
+	</body>
+	</html>
+	""" % (x, y)
+	
+	f.writelines(gmap_page)
+	#return gmap_page
 
 HOST = ''
 PORT = 8100
@@ -95,9 +81,8 @@ def hexDEC(HEXdata):
 
 
 def restDATA(): 
-    hex_time = findDATA("00040006") # 12 long
-    hex_ID = findDATA("a0950006") # 12 long
-    hex_sn = findDATA("00010006") # 12 long
+	hex_time = findDATA("00040006") # 12 long
+	hex_ID = findDATA("a0950006") # 12 lonhex_sn = findDATA("00010006") # 12 long
     hex_sn_format = hex_sn[0]+hex_sn[1][0:4]
 	
     print ("HEX DATE 3L- Y-N-D: %s" % hex_time[0][0:6])
@@ -105,7 +90,7 @@ def restDATA():
     print ("HEX pro_ID 3L: %s" % hex_ID[0]+hex_ID[1][0:4] )
     print ("HEX user_SN 3L: %s" % hex_sn_format ) 
 	
-    return hex_sn_format
+	return hex_sn_format
 
 
 def lbs_data(): # 16 , if find lbs
@@ -130,10 +115,10 @@ def lbs_data(): # 16 , if find lbs
 
 
 def allDATA():
-    #if lbs_data():
-    lbsDATA = lbs_data()
+    if lbs_data():
+        lbs_data = lbs_data()
     rest_data = restDATA()
-    gmap(lbsDATA[0], lbsDATA[1], rest_data)
+	gmap(lbs_data[0], lbs_data[1], rest_data[0])
 
 
 while True:
@@ -141,10 +126,6 @@ while True:
     print 'Connected by ', addr
 
     while True:
-        #r, _, _ = select.select([self.conn], [], [])
-        #if r:
-        #    # ready to receive
-            
         data = conn.recv(182) #182
         codec_data = data.encode('hex')
         print codec_data
