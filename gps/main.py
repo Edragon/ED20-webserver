@@ -3,16 +3,16 @@
 
 import socket
 import sys
-import struct
-#import select
+#import struct
+import select
 import json
 import urllib2
+import thread
 
 def gmap(x, y, id):
-    #write_data = "%s, %s" % (str(y), str(x))
-    #print write_data
+    # this is user GPS html address 
     f = open('/srv/www/iot.electrodragon.com/gps/%s.html' % id,'w')
-    # AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg
+    # this is API used in http --- > AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg
         
     gmap_page = """
     <!DOCTYPE html>
@@ -65,6 +65,7 @@ print 'Server start at: %s:%s' %(HOST, PORT)
 print 'wait for connection...'
 
 def httpsend(x, y):
+    # this http data send to thingsboard, use json data format
     data = {
            "latitude": y, 
           "longitude": x,
@@ -82,22 +83,25 @@ def httpsend(x, y):
     response = urllib2.urlopen(req, json.dumps(data))
     #print("data uploaded")
 
-def findDATA(DATA):
-    result = codec_data.find(DATA) # find flag for lbs data
-    hexdata_1 = codec_data[result+8:result+16] #8
-    hexdata_2 = codec_data[result+16:result+24]
+def findDATA(DATA, codec_data):
+    result = codec_data.find(DATA) # find define for data
+    hexdata_1 = codec_data[result+8:result+16] # 8 length string
+    hexdata_2 = codec_data[result+16:result+24] # next 8 length
     return hexdata_1, hexdata_2
 
 def hexDEC(HEXdata): 
+    # hex string to decimal 
     decdata_1 = int(HEXdata[0],16)
     decdata_2 = int(HEXdata[1],16)
     return decdata_1, decdata_2
 
 
-def restDATA(): 
-    hex_time = findDATA("00040006") # 12 long
-    hex_ID = findDATA("a0950006") # 12 long
-    hex_sn = findDATA("00010006") # 12 long
+def restDATA(codec_data): 
+    # get rest data except lbs location data
+    hex_time = findDATA("00040006", codec_data) # 12 long
+    hex_ID = findDATA("a0950006", codec_data) # 12 long
+    hex_sn = findDATA("00010006", codec_data) # 12 long
+
     hex_sn_format = hex_sn[0]+hex_sn[1][0:4]
 	
     print ("HEX DATE 3L- Y-N-D: %s" % hex_time[0][0:6])
@@ -108,15 +112,17 @@ def restDATA():
     return hex_sn_format
 
 
-def lbs_data(): # 16 , if find lbs
+def lbs_data(codec_data): 
+    # 16 length , lbs data
     if codec_data.find("51400008") != -1:
-        DATA = findDATA("51400008") # find flag for lbs data 51400008
+        DATA = findDATA("51400008", codec_data) # find flag for lbs data 51400008
 
         temp_lbs_lon = DATA[1]  # longtitude X
         temp_lbs_lat = DATA[0] # latitue Y
         print ("HEX LBS 2x2L - X-Y: %s, %s" % (temp_lbs_lon, temp_lbs_lat))
 
         decDATA = hexDEC(DATA)
+        # divide to readable data
         lbs_lat = decDATA[1]/float(1000000.00)
         lbs_lon = decDATA[0]/float(1000000.00)
             
@@ -129,30 +135,66 @@ def lbs_data(): # 16 , if find lbs
         return False
 
 
-def allDATA():
-    #if lbs_data():
-    lbsDATA = lbs_data()
-    rest_data = restDATA()
+def DATA_dandler(codec_data):
+    # handle main gps data
+    lbsDATA = lbs_data(codec_data)
+    # handle rest data
+    rest_data = restDATA(codec_data)
+    # send to html page
     gmap(lbsDATA[0], lbsDATA[1], rest_data)
 
 
+def on_new_client(clientsocket,addr):
+    while True:
+        data = clientsocket.recv(182) #182
+
+        codec_data = data.encode('hex')  
+        print codec_data
+        if codec_data[0:4] == '7e7e':
+            print ("INFO: star_char-%s, version-%s, action-%s, pack_times-%s" % (codec_data[0:4], codec_data[4:12], codec_data[12:16], codec_data[16:20]) ) # simple print demo
+            DATA_dandler(codec_data)
+            clientsocket.send("Received at Electrodragon tracker")
+        else:
+            clientsocket.send("you come from telnet?")
+
+        
+        
+    clientsocket.close()
+
+
+    
 while True:
     conn, addr = s.accept()
     print 'Connected by ', addr
+    thread.start_new_thread(on_new_client, (conn, addr))
 
-    while True:
-        #r, _, _ = select.select([self.conn], [], [])
-        #if r:
-        #    # ready to receive
-            
-        data = conn.recv(182) #182
-        codec_data = data.encode('hex')
-        print codec_data
-        print ("INFO: star_char-%s, version-%s, action-%s, pack_times-%s" % (codec_data[0:4], codec_data[4:12], codec_data[12:16], codec_data[16:20]) ) # simple print demo
-        allDATA()
 
-        conn.send("server received you message.")
+
+
+
+
+"""
+while True:
+    is_readable = [s]
+    is_writable = []
+    is_error = []
+    r, w, e = select.select(is_readable, is_writable, is_error, 1.0)
+
+    if r:
+        conn, addr = s.accept()
+        print 'Connected by ', addr
+        while True:    
+            data = conn.recv(182) #182
+
+            codec_data = data.encode('hex')  
+            print codec_data
+            print ("INFO: star_char-%s, version-%s, action-%s, pack_times-%s" % (codec_data[0:4], codec_data[4:12], codec_data[12:16], codec_data[16:20]) ) # simple print demo
+            DATA_dandler()
+
+            conn.send("server received you message.")
+    else:
+        print "still waiting"
 		
-		
+"""
 		
 		
