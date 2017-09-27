@@ -29,7 +29,7 @@ def amap(x, y, id, tm, nums, loc_type):
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
         <title>AMAP Demo</title>
-        <link rel="stylesheet" href="http://iot.electrodragon.com/gps/amap.css"/>
+        <link rel="stylesheet" href="http://iot.electrodragon.com/gps/2503/amap.css"/>
         <script src="http://webapi.amap.com/maps?v=1.4.0&key=1591e0082d616c531342592a541cc091"></script>
         <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
     </head>
