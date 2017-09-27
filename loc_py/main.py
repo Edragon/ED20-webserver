@@ -8,12 +8,69 @@ import select
 import json
 import urllib2
 import thread
+from coordTransform import wgs84_to_gcj02
 
-def gmap(x, y, id, tm, nums):
+def amap(x, y, id, tm, nums, loc_type):
+    # to GCJ02 data
+    gpsDATA = wgs84_to_gcj02(x, y)
+
     # this is user GPS html address 
-    f = open('/srv/www/iot.electrodragon.com/gps/%s.html' % id,'w')
+    f = open('/srv/www/iot.electrodragon.com/gps/a-%s.html' % id,'w')
+    # this is API used in http --- > 1591e0082d616c531342592a541cc091
+
+    amap_page = """
+    <!doctype html>
+    <html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+        <title>改变地图中心点及缩放级别</title>
+        <link rel="stylesheet" href="http://iot.electrodragon.com/gps/amap.css"/>
+        <script src="http://webapi.amap.com/maps?v=1.4.0&key=1591e0082d616c531342592a541cc091"></script>
+        <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    </head>
+
+    <body>
+    <h3>My Electrodragon Tracker Demo</h3>
+    <h5>Module send times: %s, module time: %s, location type %s </h5>
+    <h5>location data %s - %s </h5>
+    <div id="container"></div>
+
+    <div class="button-group">
+        <input id="setCenter" type="button" class="button" value="改变地图中心点及缩放级别"/>
+    </div>
+
+    <script>
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            center: [%s, %s],
+            zoom: 13
+        });
+        var marker = new AMap.Marker( {
+            map: map,
+            position: [%s, %s]
+        });
+
+    </script>
+
+    </body>
+    </html>
+    """ % ( str(nums), str(tm), loc_type, str(gpsDATA[0]), str(gpsDATA[1]), \
+    
+    str(gpsDATA[0]), str(gpsDATA[1]), str(gpsDATA[0]), str(gpsDATA[1]) )
+    
+    f.writelines(amap_page)
+    print ("seccessfully write to a-%s.html" % id )
+    f.close()
+
+def gmap(x, y, id, tm, nums, loc_type):
+    # this is user GPS html address 
+    f = open('/srv/www/iot.electrodragon.com/gps/g-%s.html' % id,'w')
     # this is API used in http --- > AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg
-        
+    gpsDATA = wgs84_to_gcj02(x, y)
+
     gmap_page = """
     <!DOCTYPE html>
     <html>
@@ -25,32 +82,40 @@ def gmap(x, y, id, tm, nums):
         }
         </style>
     </head>
+
     <body>
         <h3>My Electrodragon Tracker Demo</h3>
-        <h5>Module send times: %s, and module time: %s </h5>
+        <h5>Module send times: %s, module time: %s, location type %s </h5>
+        <h5>Location data %s - %s, (GCJ02 data %s - %s) </h5>
+
         <div id="map"></div>
+
         <script>
         function initMap() {
             var uluru = {lat: %s, lng: %s};
+
             var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: uluru
             });
+
             var marker = new google.maps.Marker({
             position: uluru,
             map: map
             });
         }
         </script>
+
         <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg&callback=initMap">
         </script>
+
     </body>
     </html>
-    """ % ( str(nums), str(tm), str(y), str(x) )
+    """ % ( str(nums), str(tm), loc_type, str(y), str(x), gpsDATA[0], gpsDATA[1], str(y), str(x) )
     
     f.writelines(gmap_page)
-    print ("seccessfully write to html")
+    print ("seccessfully write to g-%s html" % id)
     f.close()
     #return gmap_page
 
@@ -115,36 +180,39 @@ def restDATA(codec_data):
     return hex_sn_format, hex_tm, pcktimes
 
 
-def lbs_data(codec_data): 
-    # 16 length , lbs data
+def loc_data(codec_data): 
+    # 16 length , location data
     if codec_data.find("51400008") != -1:
+        Data_type = "LBS"
         DATA = findDATA("51400008", codec_data) # find flag for lbs data 51400008
+    elif codec_data.find("50780008") != -1:
+        Data_type = "GPS"
+        DATA = findDATA("50780008", codec_data) # find flag for lbs data 51400008
 
-        temp_lbs_lon = DATA[1]  # longtitude X
-        temp_lbs_lat = DATA[0] # latitue Y
-        print ("HEX LBS 2x2L - X-Y: %s, %s" % (temp_lbs_lon, temp_lbs_lat))
+    temp_lon = DATA[1]  # longtitude X
+    temp_lat = DATA[0] # latitue Y
+    print ("HEX %s 2x2L - X-Y: %s, %s" % (Data_type, temp_lon, temp_lat))
 
-        decDATA = hexDEC(DATA)
-        # divide to readable data
-        lbs_lat = decDATA[1]/float(1000000.00)
-        lbs_lon = decDATA[0]/float(1000000.00)
+    decDATA = hexDEC(DATA)
+    # divide to readable data
+    lat = decDATA[1]/float(1000000.00)
+    lon = decDATA[0]/float(1000000.00)
             
-        print ("DEC LBS 2x2L - X-Y: %s, %s" % (lbs_lon, lbs_lat))
+    print ("DEC %s 2x2L - X-Y: %s, %s" % (Data_type, lon, lat))
 
-        httpsend(lbs_lon, lbs_lat)
+    httpsend(lon, lat)
 
-        return lbs_lon, lbs_lat
-    else:
-        return False
+    return lon, lat, Data_type
 
 
 def DATA_dandler(codec_data):
     # handle main gps data
-    lbsDATA = lbs_data(codec_data)
+    locDATA = loc_data(codec_data)
     # handle rest data
     rest_data = restDATA(codec_data)
     # send to html page
-    gmap(lbsDATA[0], lbsDATA[1], rest_data[0], rest_data[1], rest_data[2])
+    gmap(locDATA[0], locDATA[1], rest_data[0], rest_data[1], rest_data[2], locDATA[2])
+    amap(locDATA[0], locDATA[1], rest_data[0], rest_data[1], rest_data[2], locDATA[2])
 
 
 def on_new_client(clientsocket,addr):
