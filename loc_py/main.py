@@ -11,6 +11,8 @@ import thread
 from coordTransform import wgs84_to_gcj02
 
 def amap(x, y, id, tm, nums, loc_type):
+    # AMP, www.gaode.com
+    
     # to GCJ02 data
     gpsDATA = wgs84_to_gcj02(x, y)
 
@@ -26,27 +28,23 @@ def amap(x, y, id, tm, nums, loc_type):
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-        <title>改变地图中心点及缩放级别</title>
+        <title>AMAP Demo</title>
         <link rel="stylesheet" href="http://iot.electrodragon.com/gps/amap.css"/>
         <script src="http://webapi.amap.com/maps?v=1.4.0&key=1591e0082d616c531342592a541cc091"></script>
         <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
     </head>
 
     <body>
-    <h3>My Electrodragon Tracker Demo</h3>
+    <h3>My Electrodragon Tracker Demo (AMP-gaode.com API)</h3>
     <h5>Module send times: %s, module time: %s, location type %s </h5>
-    <h5>location data %s - %s </h5>
+    <h5>Location data %s - %s (GPS -> GCJ02 version fix)</h5>
     <div id="container"></div>
-
-    <div class="button-group">
-        <input id="setCenter" type="button" class="button" value="改变地图中心点及缩放级别"/>
-    </div>
 
     <script>
         var map = new AMap.Map('container', {
             resizeEnable: true,
             center: [%s, %s],
-            zoom: 13
+            zoom: 20
         });
         var marker = new AMap.Marker( {
             map: map,
@@ -69,7 +67,6 @@ def gmap(x, y, id, tm, nums, loc_type):
     # this is user GPS html address 
     f = open('/srv/www/iot.electrodragon.com/gps/g-%s.html' % id,'w')
     # this is API used in http --- > AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg
-    gpsDATA = wgs84_to_gcj02(x, y)
 
     gmap_page = """
     <!DOCTYPE html>
@@ -86,7 +83,7 @@ def gmap(x, y, id, tm, nums, loc_type):
     <body>
         <h3>My Electrodragon Tracker Demo</h3>
         <h5>Module send times: %s, module time: %s, location type %s </h5>
-        <h5>Location data %s - %s, (GCJ02 data %s - %s) </h5>
+        <h5>Location data %s - %s </h5>
 
         <div id="map"></div>
 
@@ -112,7 +109,7 @@ def gmap(x, y, id, tm, nums, loc_type):
 
     </body>
     </html>
-    """ % ( str(nums), str(tm), loc_type, str(y), str(x), gpsDATA[0], gpsDATA[1], str(y), str(x) )
+    """ % ( str(nums), str(tm), loc_type, str(y), str(x), str(y), str(x) )
     
     f.writelines(gmap_page)
     print ("seccessfully write to g-%s html" % id)
