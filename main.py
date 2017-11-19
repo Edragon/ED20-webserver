@@ -10,6 +10,7 @@ import urllib2
 import thread
 from coordTransform import wgs84_to_gcj02
 
+www = '/var/www/html/2503/gps'
 def amap(x, y, id, tm, nums, loc_type):
     # AMP, www.gaode.com
     
@@ -17,7 +18,7 @@ def amap(x, y, id, tm, nums, loc_type):
     gpsDATA = wgs84_to_gcj02(x, y)
 
     # this is user GPS html address 
-    f = open('/srv/www/iot.electrodragon.com/gps/a-%s.html' % id,'w')
+    f = open('%s/a-%s.html' % (www, id),'w')
     # this is API used in http --- > 1591e0082d616c531342592a541cc091
 
     amap_page = """
@@ -65,7 +66,7 @@ def amap(x, y, id, tm, nums, loc_type):
 
 def gmap(x, y, id, tm, nums, loc_type):
     # this is user GPS html address 
-    f = open('/srv/www/iot.electrodragon.com/gps/g-%s.html' % id,'w')
+    f = open('%s/g-%s.html' % (www, id),'w')
     # this is API used in http --- > AIzaSyDwTjLo9c8HjFhTLyApuFc_8IIehFQDSRg
 
     gmap_page = """
