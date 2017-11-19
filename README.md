@@ -1,11 +1,18 @@
 ## to use in background 
 
-* buy a cheap server at ramnode
+* buy a cheap server at ramnode, start from a flesh server
 * install nginx -> apt-get install nginx, notice to stop apache if you have
+* install git -> apt-get install git
 * default nginx folder is /var/www/html, cd into this folder
-* mkdir new folder for 2503 -> mkdir 2503, and gps -> mkdir gps
+* git clone 2503 project into /var/www/html
+* run test command python /var/www/html/2503/gps/main.py
+* find html file in gps folder -> 
 
-run -> nohup python /root/2503/gps/main.py &
+Test 
+* make sure sim inserted
+* set sn $setsn xxxxxxxxx   (12 numbers)
+* set ip $setip $setip 167.88.114.101    (iot2.electrodragon.com)
+run -> nohup python /var/www/html/2503/gps/main.py &
 
 
 ## Resource
